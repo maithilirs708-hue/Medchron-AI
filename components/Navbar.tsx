@@ -38,6 +38,18 @@ export default function Navbar() {
           >
             Login
           </Link>
+          <Link
+  href="/register"
+  className="rounded-lg border border-blue-600 px-5 py-2.5 font-semibold text-blue-600 hover:bg-blue-50"
+>
+  Register
+</Link>
+<Link
+  href="/documents"
+  className="text-sm text-gray-600 hover:text-blue-600"
+>
+  Documents
+</Link>
         </div>
       </div>
     </nav>
