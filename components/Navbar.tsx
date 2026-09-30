@@ -50,6 +50,12 @@ export default function Navbar() {
 >
   Documents
 </Link>
+<Link
+  href="/timeline"
+  className="text-sm text-gray-600 hover:text-blue-600"
+>
+  Timeline
+</Link>
         </div>
       </div>
     </nav>
