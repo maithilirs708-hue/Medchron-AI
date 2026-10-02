@@ -14,26 +14,43 @@ export default function DashboardPage() {
           >
             MedChron AI
           </Link>
-
           <div className="flex items-center gap-6">
-            <Link
-              href="/"
-              className="text-sm text-gray-600 hover:text-blue-600"
-            >
-              Home
-            </Link>
+  <Link
+    href="/"
+    className="text-sm text-gray-600 hover:text-blue-600"
+  >
+    Home
+  </Link>
 
-            <Link
-              href="/patients"
-              className="text-sm text-gray-600 hover:text-blue-600"
-            >
-              Patients
-            </Link>
+  <Link
+    href="/dashboard"
+    className="text-sm text-gray-600 hover:text-blue-600"
+  >
+    Dashboard
+  </Link>
 
-            <div className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700">
-              Patient ▾
-            </div>
-          </div>
+  <Link
+    href="/patients"
+    className="text-sm text-gray-600 hover:text-blue-600"
+  >
+    Patients
+  </Link>
+
+  <Link
+    href="/documents"
+    className="text-sm text-gray-600 hover:text-blue-600"
+  >
+    Documents
+  </Link>
+
+  <Link
+    href="/timeline"
+    className="text-sm text-gray-600 hover:text-blue-600"
+  >
+    Timeline
+  </Link>
+</div>
+          
 
         </div>
       </header>
@@ -66,10 +83,13 @@ export default function DashboardPage() {
                 Patient ID: P001 · Age: 45 · Male
               </p>
             </div>
-
-            <button className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">
-              View Patient
-            </button>
+            <Link
+  href="/patients"
+  className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+>
+  View Patient
+</Link>
+            
 
           </div>
         </div>
@@ -321,6 +341,7 @@ function Activity({
       </button>
 
     </div>
+    
   );
 }
 
