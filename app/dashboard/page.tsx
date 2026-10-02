@@ -14,6 +14,7 @@ export default function DashboardPage() {
           >
             MedChron AI
           </Link>
+
           <div className="flex items-center gap-6">
   <Link
     href="/"
@@ -50,8 +51,6 @@ export default function DashboardPage() {
     Timeline
   </Link>
 </div>
-          
-
         </div>
       </header>
 
@@ -83,13 +82,13 @@ export default function DashboardPage() {
                 Patient ID: P001 · Age: 45 · Male
               </p>
             </div>
+
             <Link
   href="/patients"
   className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
 >
   View Patient
 </Link>
-            
 
           </div>
         </div>
@@ -341,7 +340,6 @@ function Activity({
       </button>
 
     </div>
-    
   );
 }
 
