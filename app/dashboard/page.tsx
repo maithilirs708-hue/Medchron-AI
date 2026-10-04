@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function DashboardPage() {
   return (
     <main className="min-h-screen bg-gray-50">
-
+     
       {/* Top Navigation */}
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -50,6 +50,13 @@ export default function DashboardPage() {
   >
     Timeline
   </Link>
+  {/* Logout */}
+<Link
+  href="/login"
+  className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"
+>
+  Logout
+</Link>
 </div>
         </div>
       </header>
