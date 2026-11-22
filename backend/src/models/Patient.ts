@@ -34,6 +34,8 @@ const patientSchema = new Schema<IPatient>(
   { timestamps: true }
 );
 
+patientSchema.index({ userId: 1, createdAt: -1 });
+
 const Patient = mongoose.model<IPatient>("Patient", patientSchema);
 
 export default Patient;

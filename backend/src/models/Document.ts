@@ -52,6 +52,9 @@ const documentSchema = new Schema<IMedicalDocument>(
   { timestamps: true }
 );
 
+documentSchema.index({ userId: 1, uploadedAt: -1 });
+documentSchema.index({ patientId: 1, userId: 1, uploadedAt: -1 });
+
 export default mongoose.model<IMedicalDocument>(
   "MedicalDocument",
   documentSchema

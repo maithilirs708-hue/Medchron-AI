@@ -5,6 +5,8 @@ import {
 } from "../validators/patientValidator";
 import { Router } from "express";
 import mongoose from "mongoose";
+import DocumentExtraction from "../models/DocumentExtraction";
+import MedicalEvent from "../models/MedicalEvent";
 import Patient from "../models/Patient";
 import { authenticateToken } from "../middleware/authMiddleware";
 
@@ -167,7 +169,7 @@ router.delete("/:patientId", async (req, res) => {
       });
     }
 
-    const patient = await Patient.findOneAndDelete({
+    const patient = await Patient.findOne({
       _id: patientId,
       userId: req.user!.userId
     });
@@ -177,6 +179,28 @@ router.delete("/:patientId", async (req, res) => {
         message: "Patient not found."
       });
     }
+
+    const [hasExtractions, hasClinicalEvents] = await Promise.all([
+      DocumentExtraction.exists({
+        patientId: patient._id,
+        userId: req.user!.userId
+      }),
+      MedicalEvent.exists({
+        patientId: patient._id,
+        userId: req.user!.userId
+      })
+    ]);
+
+    if (hasExtractions || hasClinicalEvents) {
+      return res.status(409).json({
+        message: "This patient has clinical history and cannot be deleted."
+      });
+    }
+
+    await Patient.deleteOne({
+      _id: patient._id,
+      userId: req.user!.userId
+    });
 
     return res.status(200).json({
       message: "Patient deleted successfully."

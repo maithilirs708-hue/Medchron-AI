@@ -1,12 +1,15 @@
 import authRoutes from "./routes/authRoutes";
 import patientRoutes from "./routes/patientRoutes";
 
+import connectDB from "./config/db";
+
 import documentRoutes from "./routes/documentRoutes";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import timelineRoutes from "./routes/timelineRoutes";
+import extractionRoutes from "./routes/extractionRoutes";
 import { errorHandler } from "./middleware/errorMiddleware";
 dotenv.config();
 
@@ -28,12 +31,13 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 app.use(express.json());
 app.use("/api/timeline", timelineRoutes);
+app.use("/api/extractions", extractionRoutes);
 app.use("/api/documents", documentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/patients", patientRoutes);
@@ -60,6 +64,17 @@ app.use((_req, res) => {
 
 // GLOBAL ERROR HANDLER
 app.use(errorHandler);
-app.listen(PORT, () => {
-  console.log(`MedChron AI backend running on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`MedChron AI backend running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Server startup failed:", error);
+    process.exit(1);
+  }
+};
+
+startServer();

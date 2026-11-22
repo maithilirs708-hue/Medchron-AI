@@ -9,6 +9,8 @@ import mongoose from "mongoose";
 import { Readable } from "stream";
 
 import Document from "../models/Document";
+import DocumentExtraction from "../models/DocumentExtraction";
+import MedicalEvent from "../models/MedicalEvent";
 import Patient from "../models/Patient";
 import cloudinary from "../config/cloudinary";
 import { authenticateToken } from "../middleware/authMiddleware";
@@ -320,6 +322,24 @@ router.delete("/:documentId", async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Document not found."
+      });
+    }
+
+    const [hasExtractions, hasClinicalEvidence] = await Promise.all([
+      DocumentExtraction.exists({
+        documentId: document._id,
+        userId: req.user!.userId
+      }),
+      MedicalEvent.exists({
+        userId: req.user!.userId,
+        "sourceEvidence.documentId": document._id
+      })
+    ]);
+
+    if (hasExtractions || hasClinicalEvidence) {
+      return res.status(409).json({
+        success: false,
+        message: "This document is referenced by clinical history and cannot be deleted."
       });
     }
 
