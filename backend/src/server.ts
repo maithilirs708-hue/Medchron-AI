@@ -64,17 +64,13 @@ app.use((_req, res) => {
 
 // GLOBAL ERROR HANDLER
 app.use(errorHandler);
-const startServer = async () => {
-  try {
-    await connectDB();
 
-    app.listen(PORT, () => {
-      console.log(`MedChron AI backend running on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error("Server startup failed:", error);
-    process.exit(1);
-  }
+// Replace the existing app.listen(...) with:
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`MedChron AI backend running on port ${PORT}`);
+  });
 };
 
-startServer();
+void startServer();
